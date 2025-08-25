@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA na Educação - Vamos Personalizar Seu Aprendizado!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .brain-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4ecdc4;
+        }
+
+        .form-section {
+            margin-bottom: 35px;
+        }
+
+        .form-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section .icon {
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .priority-item {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .priority-item:hover {
+            border-color: #4ecdc4;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .priority-item.selected {
+            border-color: #4ecdc4;
+            background: #e8f8f7;
+        }
+
+        .priority-item .emoji {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 40px auto 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brain-icon">🧠</div>
+            <h1>IA na Educação</h1>
+            <div class="subtitle">Vamos criar juntas o curso perfeito para VOCÊ!</div>
+        </div>
+
+        <div class="content">
+            <div class="intro-text">
+                <strong>Querida educadora!</strong><br>
+                Para que nosso encontro seja o mais útil possível, preciso conhecer um pouquinho sobre você e suas necessidades. 
+                Cada resposta aqui vai me ajudar a preparar conteúdos que realmente façam diferença no seu dia a dia! ✨
+            </div>
+
+            <form id="cursoForm">
+                <!-- Informações Básicas -->
+                <div class="form-section">
+                    <h3><span class="icon">👩‍🏫</span> Sobre Você</h3>
+                    
+                    <div class="form-group">
+                        <label for="nome">Seu nome (pode ser só o primeiro!):</label>
+                        <input type="text" id="nome" name="nome" placeholder="Ex: Maria">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idade_alunos">Com que faixa etária você trabalha?</label>
+                        <select id="idade_alunos" name="idade_alunos">
+                            <option value="">Selecione...</option>
+                            <option value="0-2">Berçário (0-2 anos)</option>
+                            <option value="2-3">Maternal (2-3 anos)</option>
+                            <option value="3-4">Jardim I (3-4 anos)</option>
+                            <option value="4-5">Jardim II (4-5 anos)</option>
+                            <option value="5-6">Pré-escola (5-6 anos)</option>
+                            <option value="6-7">1º ano (6-7 anos)</option>
+                            <option value="7-8">2º ano (7-8 anos)</option>
+                            <option value="8-9">3º ano (8-9 anos)</option>
+                            <option value="9-10">4º ano (9-10 anos)</option>
+                            <option value="10-11">5º ano (10-11 anos)</option>
+                            <option value="misto">Trabalho com várias idades</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experiencia_ia">Qual sua experiência com IA?</label>
+                        <select id="experiencia_ia" name="experiencia_ia">
+                            <option value="">Selecione...</option>
+                            <option value="zero">Nunca usei, tenho até um pouco de receio</option>
+                            <option value="curiosa">Já ouvi falar, mas nunca tentei</option>
+                            <option value="basica">Já testei algumas vezes, mas ainda me confundo</option>
+                            <option value="intermediaria">Uso às vezes, mas sei que posso melhorar</option>
+                            <option value="avancada">Já uso bastante e quero me aperfeiçoar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Principais Desafios -->
+                <div class="form-section">
+                    <h3><span class="icon">🎯</span> Seus Maiores Desafios</h3>
+                    <p style="margin-bottom: 15px; color: #666;">Marque todas as situações que você vive no seu dia a dia:</p>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tempo" name="desafios" value="falta_tempo">
+                            <label for="tempo">Falta de tempo para planejar aulas</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="criatividade" name="desafios" value="falta_criatividade">
+                            <label for="criatividade">Preciso de mais ideias criativas</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="adaptacao" name="desafios" value="adaptacao_atividades">
+                            <label for="adaptacao">Adaptar atividades para diferentes níveis</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="inclusao" name="desafios" value="inclusao">
+                            <label for="inclusao">Criar materiais inclusivos</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="engajamento" name="desafios" value="engajamento">
+                            <label for="engajamento">Manter as crianças engajadas</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="relatorios" name="desafios" value="relatorios">
+                            <label for="relatorios">Escrever relatórios e comunicados</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pais" name="desafios" value="comunicacao_pais">
+                            <label for="pais">Comunicação com os pais</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tecnologia" name="desafios" value="medo_tecnologia">
+                            <label for="tecnologia">Receio de usar tecnologia</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- O que mais quer aprender -->
+                <div class="form-section">
+                    <h3><span class="icon">🌟</span> O que você MAIS quer aprender?</h3>
+                    <p style="margin-bottom: 15px; color: #666;">Escolha até 3 prioridades:</p>
+                    
+                    <div class="priority-grid">
+                        <div class="priority-item" data-value="prompts_perfeitos">
+                            <span class="emoji">✨</span>
+                            <strong>Prompts Perfeitos</strong>
+                            <p>Como "conversar" com a IA para ter resultados incríveis</p>
+                        </div>
+                        <div class="priority-item" data-value="atividades_praticas">
+                            <span class="emoji">🎨</span>
+                            <strong>Criar Atividades</strong>
+                            <p>Jogos, brincadeiras e materiais únicos</p>
+                        </div>
+                        <div class="priority-item" data-value="historias_personalizadas">
+                            <span class="emoji">📚</span>
+                            <strong>Histórias Personalizadas</strong>
+                            <p>Contos que falam sobre sua turma</p>
+                        </div>
+                        <div class="priority-item" data-value="planejamento_rapido">
+                            <span class="emoji">⚡</span>
+                            <strong>Planejamento Rápido</strong>
+                            <p>Aulas completas em minutos</p>
+                        </div>
+                        <div class="priority-item" data-value="inclusao_automatica">
+                            <span class="emoji">🤝</span>
+                            <strong>Inclusão Automática</strong>
+                            <p>Adaptações para todas as necessidades</p>
+                        </div>
+                        <div class="priority-item" data-value="comunicacao_familia">
+                            <span class="emoji">💬</span>
+                            <strong>Comunicação com Famílias</strong>
+                            <p>Mensagens, relatórios e reuniões</p>
+                        </div>
+                        <div class="priority-item" data-value="outro_assunto">
+                            <span class="emoji">💡</span>
+                            <strong>Outro Assunto</strong>
+                            <p>Algo específico que você gostaria</p>
+                        </div>
+                    </div>
+
+                    <!-- Campo para outro assunto -->
+                    <div class="form-group" id="outroAssuntoGroup" style="display: none; margin-top: 20px;">
+                        <label for="outro_assunto_texto">Que assunto você gostaria de aprender?</label>
+                        <input type="text" id="outro_assunto_texto" name="outro_assunto_texto" 
+                               placeholder="Ex: Como usar IA para criar músicas infantis, Como fazer vídeos educativos...">
+                    </div>
+                </div>
+
+                <!-- Situação Específica -->
+                <div class="form-section">
+                    <h3><span class="icon">🆘</span> Conte-me um Desafio Real</h3>
+                    <div class="form-group">
+                        <label for="desafio_especifico">
+                            Tem alguma situação específica que tira seu sono? Uma criança, uma atividade, um projeto? 
+                            Conte aqui para trabalharmos juntas durante o curso!
+                        </label>
+                        <textarea id="desafio_especifico" name="desafio_especifico" rows="4" 
+                                placeholder="Ex: Tenho um aluno que não fala desde que chegou na escola, só desenha. Como posso incluí-lo melhor nas atividades?"></textarea>
+                    </div>
+                </div>
+
+                <!-- Formato Preferido -->
+                <div class="form-section">
+                    <h3><span class="icon">🎓</span> Como Você Aprende Melhor?</h3>
+                    <div class="form-group">
+                        <label for="formato_preferido">Qual formato você prefere?</label>
+                        <select id="formato_preferido" name="formato_preferido">
+                            <option value="">Selecione...</option>
+                            <option value="pratico">Mais prática, menos teoria</option>
+                            <option value="equilibrado">Equilibrio entre teoria e prática</option>
+                            <option value="passo_passo">Passo a passo bem detalhado</option>
+                            <option value="exemplos">Muitos exemplos reais</option>
+                            <option value="interativo">Atividades em grupo</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <button type="submit" class="submit-btn">
+                    🚀 Vamos Criar Algo Incrível Juntas!
+                </button>
+            </form>
+        </div>
+
+        <div class="footer">
+            "A melhor IA é aquela que amplifica a criatividade humana" ✨
+        </div>
+    </div>
+
+    <script>
+        // Seleção de prioridades (máximo 3)
+        const priorityItems = document.querySelectorAll('.priority-item');
+        const selectedPriorities = [];
+
+        priorityItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                
+                if (this.classList.contains('selected')) {
+                    // Remove se já estava selecionado
+                    this.classList.remove('selected');
+                    const index = selectedPriorities.indexOf(value);
+                    selectedPriorities.splice(index, 1);
+                    
+                    // Esconde campo "outro assunto" se deselecionar
+                    if (value === 'outro_assunto') {
+                        document.getElementById('outroAssuntoGroup').style.display = 'none';
+                        document.getElementById('outro_assunto_texto').value = '';
+                    }
+                } else if (selectedPriorities.length < 3) {
+                    // Adiciona se ainda não atingiu o limite
+                    this.classList.add('selected');
+                    selectedPriorities.push(value);
+                    
+                    // Mostra campo "outro assunto" se selecionado
+                    if (value === 'outro_assunto') {
+                        document.getElementById('outroAssuntoGroup').style.display = 'block';
+                        document.getElementById('outro_assunto_texto').focus();
+                    }
+                } else {
+                    // Alerta se tentar selecionar mais de 3
+                    alert('Você pode escolher no máximo 3 prioridades! 😊');
+                }
+            });
+        });
+
+        // Submissão do formulário - Adaptado para n8n
+        document.getElementById('cursoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coleta todos os dados
+            const formData = new FormData(this);
+            const dadosColeta = {};
+            
+            // Dados básicos
+            for (let [key, value] of formData.entries()) {
+                if (key === 'desafios') {
+                    if (!dadosColeta.desafios) dadosColeta.desafios = [];
+                    dadosColeta.desafios.push(value);
+                } else {
+                    dadosColeta[key] = value;
+                }
+            }
+            
+            // Adiciona prioridades selecionadas
+            dadosColeta.prioridades = selectedPriorities;
+            
+            // Prepara dados para envio ao n8n
+            const dadosParaN8n = {
+                nome: dadosColeta.nome || '',
+                idade_alunos: dadosColeta.idade_alunos || '',
+                experiencia_ia: dadosColeta.experiencia_ia || '',
+                desafios: dadosColeta.desafios ? dadosColeta.desafios.join(', ') : '',
+                prioridades: dadosColeta.prioridades ? dadosColeta.prioridades.join(', ') : '',
+                outro_assunto_texto: dadosColeta.outro_assunto_texto || '',
+                desafio_especifico: dadosColeta.desafio_especifico || '',
+                formato_preferido: dadosColeta.formato_preferido || '',
+                timestamp: new Date().toISOString()
+            };
+            
+            // Envia para n8n (substitua pela sua URL do webhook)
+            fetch('SUA_URL_N8N_AQUI', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dadosParaN8n)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Sucesso:', data);
+                mostrarResumo(dadosColeta);
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+                // Ainda mostra o resumo mesmo se houver erro no envio
+                mostrarResumo(dadosColeta);
+            });
+        });
+
+        function mostrarResumo(dados) {
+            let resumo = `🎉 Obrigada, ${dados.nome || 'querida'}!\n\n`;
+            resumo += `Suas respostas foram salvas! Aqui está um resuminho:\n\n`;
+            resumo += `👩‍🏫 Faixa etária: ${dados.idade_alunos}\n`;
+            resumo += `🎯 Experiência com IA: ${dados.experiencia_ia}\n`;
+            
+            if (dados.desafios?.length > 0) {
+                resumo += `🔥 Principais desafios: ${dados.desafios.length} selecionados\n`;
+            }
+            
+            if (dados.prioridades?.length > 0) {
+                resumo += `⭐ Prioridades: ${dados.prioridades.length} escolhidas\n`;
+            }
+            
+            resumo += `\n✨ Agora posso preparar um curso sob medida para você!\n`;
+            resumo += `Nos vemos em breve! 💕`;
+            
+            alert(resumo);
+        }
+
+        // Pequenas animações de feedback
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
